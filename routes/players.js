@@ -1,5 +1,6 @@
 const {Router} = require('express')
 const Player = require('../models/players')
+const { chequear_credenciales } = require('./auth')
 
 const router = Router()
 
@@ -27,7 +28,7 @@ router.post('/players', async (req, res) => {
 })
 
 // ruta para obtener todas las players
-router.get('/players', async (req, res) => {
+router.get('/players', chequear_credenciales, async (req, res) => {
   const players = await Player.find()
   res.json({players})
 })
@@ -37,6 +38,17 @@ router.delete('/players/:id', async (req, res) => {
   const id = req.params.id
   await Player.deleteOne({_id: id})
   res.json({eliminado: 'ok'})
+})
+
+router.put('/players/:id/games/:num', async (req, res) => {
+  const id = req.params.id
+  const num = req.params.num
+
+  const {value} = req.body
+
+  const game_str = 'game' + num
+  await Player.updateOne({_id: id}, {$set: {[game_str]: value}})
+  res.json({todo: 'ok'})
 })
 
 

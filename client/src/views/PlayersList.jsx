@@ -11,9 +11,19 @@ function PlayersList() {
 
   useEffect(
     () => {
-      axios.get(window.$api + '/players')
+      // 1. Recuperamos el token
+      const token = localStorage.getItem('token')
+      // 2. Llamamos a la API con la lista de jugadores
+      axios.get(window.$api + '/players', {
+        headers: {
+          authorization: 'Bearer ' + token
+        }
+      })
       .then(resp => {
         setPlayers(resp.data.players)
+      })
+      .catch(error => {
+        alert(error)
       })
     },
     []

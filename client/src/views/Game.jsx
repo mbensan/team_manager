@@ -19,6 +19,20 @@ function Game() {
     []
   )
 
+  async function setGame(_id, numGame, newStatus) {
+    await axios.put(window.$api + `/players/${_id}/games/${numGame}`, {
+      value: newStatus
+    })
+    const player = players.find(pla => pla._id === _id)
+    player['game' + num] = newStatus
+    const index = players.findIndex(pla => pla._id === _id)
+    setPlayers([
+      ...players.slice(0, index),
+      player,
+      ...players.slice(index+1)
+    ])
+  }
+
   return (
     <section>
       <div className="menu">
@@ -50,17 +64,17 @@ function Game() {
                   <td>{player.name}</td>
                   <td>
                     <button
-                      onClick={() => console.log(player._id)}
+                      onClick={() => setGame(player._id, num, 'playing')}
                       className={player['game'+num] === 'playing' ? 'btn btn-success': 'btn btn-light'}>
                         Jugando
                     </button>
                     <button
-                      onClick={() => console.log(player._id)}
+                      onClick={() => setGame(player._id, num, 'not_playing')}
                       className={player['game'+num] === 'not_playing' ? 'btn btn-danger': 'btn btn-light'}>
                         No Jugando
                     </button>
                     <button
-                      onClick={() => console.log(player._id)}
+                      onClick={() => setGame(player._id, num, 'undefined')}
                       className={player['game'+num] === 'undefined' ? 'btn btn-warning': 'btn btn-light'}>
                         Indefinido
                     </button>
