@@ -28,7 +28,8 @@ router.post('/players', async (req, res) => {
 })
 
 // ruta para obtener todas las players
-router.get('/players', chequear_credenciales, async (req, res) => {
+//router.get('/players', chequear_credenciales, async (req, res) => {
+router.get('/players', async (req, res) => {
   const players = await Player.find()
   res.json({players})
 })
