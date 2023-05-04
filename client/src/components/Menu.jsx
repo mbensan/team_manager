@@ -16,6 +16,11 @@ function Menu() {
       text: 'Manejar Estado',
       path: '/status/game/1',
       active: false
+    },
+    {
+      text: 'Crear Estadio',
+      path: '/stadiums/create',
+      active: false
     }
   ])
 

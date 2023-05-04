@@ -8,6 +8,7 @@ import Game from './views/Game'
 import Menu from './components/Menu';
 import Login from './views/Login';
 import Register from './views/Register';
+import CreateStadium from './views/CreateStadium';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path='/' element={<PlayersList />}></Route>
             <Route path='/players/addplayer' element={<CreatePlayer />}></Route>
             <Route path='/status/game/:num' element={<Game />}></Route>
+            <Route path='/stadiums/create' element={<CreateStadium />}></Route>
           </Routes>
         </header>
       </div>
